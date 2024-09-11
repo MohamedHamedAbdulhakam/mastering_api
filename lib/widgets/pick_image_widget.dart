@@ -12,7 +12,7 @@ class PickImageWidget extends StatelessWidget {
       height: 130,
       child: CircleAvatar(
         backgroundColor: Colors.grey.shade200,
-        backgroundImage: const AssetImage("assets/images/avatar.png"),
+        // backgroundImage: const AssetImage("assets/images/avatar.png"),
         child: Stack(
           children: [
             Positioned(
