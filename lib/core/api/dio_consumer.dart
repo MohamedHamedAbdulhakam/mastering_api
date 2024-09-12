@@ -1,12 +1,13 @@
 import 'package:happy_tech_mastering_api_with_flutter/core/api/api_consumer.dart';
 import 'package:dio/dio.dart';
 import 'package:happy_tech_mastering_api_with_flutter/core/api/api_interceptors.dart';
+import 'package:happy_tech_mastering_api_with_flutter/core/api/end_points.dart';
 import 'package:happy_tech_mastering_api_with_flutter/core/errors/exception.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
   DioConsumer({required this.dio}) {
-    dio.options.baseUrl = 'https://food-api-omega.vercel.app/api/v1/';
+    dio.options.baseUrl = EndPoints.badeUrl;
     dio.interceptors.add(ApiInterceptors());
     dio.interceptors.add(LogInterceptor(
         request: true,
