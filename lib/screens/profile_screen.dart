@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
           const ListTile(
             title: Text("Email"),
             leading: Icon(Icons.email),
-          ),
+          ), //
           const SizedBox(height: 16),
 
           //! Phone number
@@ -48,3 +48,12 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed
+//my mohamed hamed is a good student  is mohamed

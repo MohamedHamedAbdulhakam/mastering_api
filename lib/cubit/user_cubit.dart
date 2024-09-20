@@ -1,9 +1,14 @@
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happy_tech_mastering_api_with_flutter/cach/cache_helper.dart';
 import 'package:happy_tech_mastering_api_with_flutter/core/api/api_consumer.dart';
+import 'package:happy_tech_mastering_api_with_flutter/core/api/end_points.dart';
+import 'package:happy_tech_mastering_api_with_flutter/core/errors/exception.dart';
 import 'package:happy_tech_mastering_api_with_flutter/cubit/user_state.dart';
+import 'package:happy_tech_mastering_api_with_flutter/models/sign_in_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -28,21 +33,25 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signUpPassword = TextEditingController();
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
+  SignInModel? user;
   singnIn() async {
     try {
       emit(SignInLoading());
       final response = await api.post(
-        // "https://food-api-omega.vercel.app/api/v1/user/signin",
-        // data: {
-        //   "email": signInEmail.text,
-        //   "password": signInPassword.text,
-        // },
+        EndPoints.signIn,
+        data: {
+          ApiKey.email: signInEmail.text, 
+          ApiKey.password: signInPassword.text
+        },
       );
+      user = SignInModel.fromjson(response);
+      final decodedToken = JwtDecoder.decode(user!.token);
+      //print(decodedToken['id']);
+      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
       emit(SingnInSuccess());
-      print(response);
-    } catch (e) {
-      emit(SignInFailure(errorMessage: e.toString()));
-      print(e.toString());
+    } on ServerException catch (e) {
+      emit(SignInFailure(errorMessage: e.errorModel.errorMessage));
     }
   }
 }

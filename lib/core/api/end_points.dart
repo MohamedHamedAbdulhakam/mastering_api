@@ -10,4 +10,5 @@ class ApiKey {
   static String password = 'password';
   static String id = 'id';
   static String token = 'token';
+  static String message = 'message';
 }
