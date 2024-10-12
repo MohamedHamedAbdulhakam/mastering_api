@@ -22,10 +22,16 @@ class SignInScreen extends StatelessWidget {
           if (state is SingnInSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text('success')));
-          }
-         else if (state is SignInFailure) {
+            context.read<UserCubit>().getUserProfile();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfileScreen(),
+              ),
+            );
+          } else if (state is SignInFailure) {
             ScaffoldMessenger.of(context)
-                .showSnackBar( SnackBar(content: Text(state.errorMessage)));
+                .showSnackBar(SnackBar(content: Text(state.errorMessage)));
           }
         },
         builder: (context, state) {
@@ -75,12 +81,6 @@ class SignInScreen extends StatelessWidget {
                                     innerText: 'Sign In',
                                     onPressed: () {
                                       context.read<UserCubit>().singnIn();
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => const ProfileScreen(),
-                                      //   ),
-                                      // );
                                     },
                                   ),
                             const SizedBox(height: 18),
